@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "List" %}{% endblock title %}
+{% block header %}{% endblock header %}
+{% block content %}
+<h2>{% trans "logfile" %}</h2>
+{% if logfile.count > 0 %}
+<div class="row">
+	<table id="myTable" class="table-manager" style="width:100%">
+		<thead>
+			<tr>
+				<th><p>{% trans "logfile_title" %}</p></th>
+				<th><p><a href="{% url 'logfile_create'%}">{% trans "Add" %}</a></p></th>				
+			</tr>
+		</thead>
+		<tbody>
+			{% for p in logfile %}
+			<tr>
+				<td><p>{{ p.title }}</p></td>
+				<td>
+					<p>
+					<a href="{% url 'logfile_edit' p.id %}">{% trans "Change" %}</a> |
+					<a href="{% url 'logfile_read' p.id %}">{% trans "View" %}</a> |
+					<a onclick="return confirm('Удалить запись?')" href="{% url 'logfile_delete' p.id %}">{% trans "Delete" %}</a>
+					</p>
+				</td>			
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% else %}
+<a href="{% url 'logfile_create'%}">{% trans "Add" %}</a>
+{% endif %}
+{% endblock content %}
+
