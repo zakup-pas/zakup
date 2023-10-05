@@ -88,7 +88,12 @@ HEADER = ["1", "2", "Наименование", "ИИН/БИН", "Организ
 # Функция отладки
 DEBUG = False
 # Элемент класса Firefox, Chrome, Edge.
-driver = webdriver.Firefox()
+
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+
+#driver = webdriver.Firefox()
 
 # Общие "глобальные" переменные (со значениями по умолчанию), здесь не меняются, меняются в set_variables() для консольного или в главной форме для оконного
 def glob():
