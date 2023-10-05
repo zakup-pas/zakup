@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-=88m8_0w_&$ocsaw9xt+=1vp958h^rw%$ywh@+v+it7=vgj6i*
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-#DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'zakup-parsing.onrender.com',]
 
