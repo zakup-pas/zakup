@@ -37,26 +37,30 @@ def group_required(*group_names):
 
 # Стартовая страница 
 def index(request):
-    # Стартовые данные
-    glob.start_url = "https://zakup.sk.kz/#/ext/participants"
-    glob.start_page = 1
-    glob.finish_page = 10
-    glob.pause_popup = 2
-    glob.pause_load_page = 4
-    glob.pause_flipping = 1
-    glob.pause_flipping_shot = 1
-    if request.method == "POST":
-        glob.start_url = request.POST.get("start_url")
-        glob.start_page = int(request.POST.get("start_page"))
-        glob.finish_page = int(request.POST.get("finish_page"))
-        glob.pause_popup = float(request.POST.get("pause_popup"))
-        glob.pause_load_page = float(request.POST.get("pause_load_page"))
-        glob.pause_flipping = float(request.POST.get("pause_flipping"))
-        glob.pause_flipping_shot = float(request.POST.get("pause_flipping_shot"))
-        glob.data = []   
-        run()
-    return render(request, "index.html", {"start_url": glob.start_url, "start_page": glob.start_page, "finish_page": glob.finish_page, "pause_popup": glob.pause_popup, 
-                                          "pause_load_page": glob.pause_load_page, "pause_flipping": glob.pause_flipping, "pause_flipping_shot": glob.pause_flipping_shot, })
+    try:
+        # Стартовые данные
+        glob.start_url = "https://zakup.sk.kz/#/ext/participants"
+        glob.start_page = 1
+        glob.finish_page = 10
+        glob.pause_popup = 2
+        glob.pause_load_page = 4
+        glob.pause_flipping = 1
+        glob.pause_flipping_shot = 1
+        if request.method == "POST":
+            glob.start_url = request.POST.get("start_url")
+            glob.start_page = int(request.POST.get("start_page"))
+            glob.finish_page = int(request.POST.get("finish_page"))
+            glob.pause_popup = float(request.POST.get("pause_popup"))
+            glob.pause_load_page = float(request.POST.get("pause_load_page"))
+            glob.pause_flipping = float(request.POST.get("pause_flipping"))
+            glob.pause_flipping_shot = float(request.POST.get("pause_flipping_shot"))
+            glob.data = []   
+            run()
+        return render(request, "index.html", {"start_url": glob.start_url, "start_page": glob.start_page, "finish_page": glob.finish_page, "pause_popup": glob.pause_popup, 
+                                              "pause_load_page": glob.pause_load_page, "pause_flipping": glob.pause_flipping, "pause_flipping_shot": glob.pause_flipping_shot, })
+    except Exception as exception:
+        print(exception)
+        return HttpResponse(exception)
 
 # Контакты
 def contact(request):
@@ -84,7 +88,7 @@ HEADER = ["1", "2", "Наименование", "ИИН/БИН", "Организ
 # Функция отладки
 DEBUG = False
 # Элемент класса Firefox, Chrome, Edge.
-driver = webdriver.Firefox()
+driver = webdriver.Chrome()
 
 # Общие "глобальные" переменные (со значениями по умолчанию), здесь не меняются, меняются в set_variables() для консольного или в главной форме для оконного
 def glob():
